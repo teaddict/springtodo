@@ -9,11 +9,14 @@ public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServl
         return null;
     }
 
+    //front controller configurasyonum web config dosyamda
     @Override
     protected Class<?>[] getServletConfigClasses() {
         return new Class[] { WebConfig.class };
     }
-
+    
+    // "/" dan sonraki herşeye bana gelsin. root path sonrası springe gelsin
+    // burda front controllerimi ayarlamış oluyorum
     @Override
     protected String[] getServletMappings() {
         return new String[] { "/" };

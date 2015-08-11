@@ -1,6 +1,8 @@
 package tr.lkd.lyk2015.springtodo.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import tr.lkd.lyk2015.springtodo.service.TodoService;
 @RequestMapping("/todo")
 public class TodoController {
 	
+	
 	@Autowired
 	private TodoService todoService;
 
@@ -28,7 +31,7 @@ public class TodoController {
 	}
 
 	
-	
+	// "/todo/create" 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String createForm(@ModelAttribute Todo todo) {
 		
@@ -39,6 +42,21 @@ public class TodoController {
 	public String create(@ModelAttribute Todo todo) {
 		todoService.create(todo);
 		
+		return "redirect:/todo";
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String update(@ModelAttribute HashMap<String, String> map) {
+		//todoService.update(todo);
+		System.out.println(map);
+		return "redirect:/todo";
+	}
+	
+	@RequestMapping(value = "/mark", method = RequestMethod.POST)
+	public String mark(@ModelAttribute Todo todo) {
+		//todoService.update(todo);
+		System.out.println(todo.getId() + " and  " + todo.isDone());
+		todoService.updateById(todo);
 		return "redirect:/todo";
 	}
 

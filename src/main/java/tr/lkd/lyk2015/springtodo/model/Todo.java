@@ -1,12 +1,17 @@
 package tr.lkd.lyk2015.springtodo.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 public class Todo implements Serializable {
@@ -21,6 +26,7 @@ public class Todo implements Serializable {
 	
 	@Column(name = "description")
 	private String desc;
+	@DateTimeFormat(iso= ISO.DATE)
 	private Calendar dueDate;
 	private boolean done;
 
@@ -63,5 +69,15 @@ public class Todo implements Serializable {
 	public void setDone(boolean done) {
 		this.done = done;
 	}
-
+	
+	public String getDate()
+	{
+		Date date = this.dueDate.getTime();             
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");  
+		String datetime= null;
+		datetime = format1.format(date);
+		System.out.println(datetime);
+		
+		return datetime;
+	}
 }

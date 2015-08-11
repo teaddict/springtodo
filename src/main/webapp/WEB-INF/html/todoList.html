@@ -1,5 +1,16 @@
 <h1>Spring</h1>
 
 <ul>
-	<li th:each="todo : ${todoList}"><p th:text="${todo.name}"></p></li>
+	<li th:each="todo : ${todoList}">
+	<p th:text="${todo.name}"></p>
+	<p th:text="${todo.desc}" />
+	<p th:text="${todo.dueDate.getTime()}" />
+	<p th:text="${todo.done}" />
+	<form action="#" th:action="@{/todo/mark}" th:object="${todo}" method="post">	
+		<input type="checkbox" name="done" th:checked="${todo.done}" />
+		<input type="hidden" name="id" th:value="${todo.id}" />
+		<p><input type="submit" value="Kaydet" /></p>
+	</form>
+	
+	</li>
 </ul>
