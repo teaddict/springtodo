@@ -11,6 +11,9 @@
 		<input type="hidden" name="id" th:value="${todo.id}" />
 		<p><input type="submit" value="Kaydet" /></p>
 	</form>
-	
+	<form action="#" th:action="@{/todo/edit}" th:object="${todo}" method="get">	
+		<input type="hidden" name="id" th:value="${todo.id}" />
+		<p><input type="submit" value="Edit" /></p>
+	</form>
 	</li>
 </ul>

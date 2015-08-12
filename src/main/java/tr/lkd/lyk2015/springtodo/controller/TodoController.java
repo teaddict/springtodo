@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import tr.lkd.lyk2015.springtodo.model.Todo;
 import tr.lkd.lyk2015.springtodo.service.TodoService;
@@ -46,9 +47,10 @@ public class TodoController {
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(@ModelAttribute HashMap<String, String> map) {
+	public String update(@ModelAttribute Todo todo) {
 		//todoService.update(todo);
-		System.out.println(map);
+		System.out.println(todo);
+		todoService.update(todo);
 		return "redirect:/todo";
 	}
 	
@@ -59,5 +61,13 @@ public class TodoController {
 		todoService.updateById(todo);
 		return "redirect:/todo";
 	}
-
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public String editForm(Model model,@RequestParam(required=true) String id) {
+		Long i = Long.valueOf(id).longValue();
+		Todo todo = todoService.getById(i);
+		model.addAttribute("todo", todo);
+		return "editForm";
+	}
+	
 }
