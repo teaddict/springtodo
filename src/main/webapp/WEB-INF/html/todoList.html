@@ -2,10 +2,14 @@
 
 <ul>
 	<li th:each="todo : ${todoList}">
-	<p th:text="${todo.name}"></p>
+	<strike th:if="${todo.done}"><p th:text="${todo.name}"></p>
 	<p th:text="${todo.desc}" />
 	<p th:text="${todo.dueDate.getTime()}" />
-	<p th:text="${todo.done}" />
+	</strike>
+	<div th:if="!${todo.done}"><p th:text="${todo.name}"></p>
+	<p th:text="${todo.desc}" />
+	<p th:text="${todo.dueDate.getTime()}" />
+	</div>
 	<form action="#" th:action="@{/todo/mark}" th:object="${todo}" method="post">	
 		<input type="checkbox" name="done" th:checked="${todo.done}" />
 		<input type="hidden" name="id" th:value="${todo.id}" />

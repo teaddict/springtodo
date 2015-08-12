@@ -9,5 +9,6 @@
 	<input type="hidden" name="id" th:value="${todo.id}" />
     <p><input type="submit" value="Kaydet" /></p>
 </form>
+<b th:text="${message}" th:if="${message} != null" />
 </center>
 </html>

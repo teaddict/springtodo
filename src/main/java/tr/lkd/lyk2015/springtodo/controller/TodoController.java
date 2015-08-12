@@ -47,11 +47,12 @@ public class TodoController {
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(@ModelAttribute Todo todo) {
+	public String update(@ModelAttribute Todo todo, Model model) {
 		//todoService.update(todo);
 		System.out.println(todo);
 		todoService.update(todo);
-		return "redirect:/todo";
+		model.addAttribute("message", "success");
+		return "redirect:/todo/edit?id=" + todo.getId();
 	}
 	
 	@RequestMapping(value = "/mark", method = RequestMethod.POST)
@@ -62,12 +63,45 @@ public class TodoController {
 		return "redirect:/todo";
 	}
 	
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public String editForm(Model model,@RequestParam(required=true) String id) {
+	//bu şekilde de bi yöntem var fakat kullanılması tercih edilmez
+/*	@RequestMapping(value = "/mark", method = RequestMethod.POST)
+	public String mark(@ModelAttribute Todo todo,HttpServletRequest request) {
+		//todoService.update(todo);
+		String id = request.getParameter("id");
+		String done = request.getParameter("done");
+		System.out.println(todo.getId() + " and  " + todo.isDone());
+		todoService.updateById(todo);
+		return "redirect:/todo";
+	}*/
+	
+	
+	// required=true yazmasak da olur, default olarak true kabul ediyor
+	@RequestMapping(value = "/edit", method = RequestMethod.GET,params={"id"})
+	public String editForm(Model model,@RequestParam String id,@RequestParam (value="message",required=false) String message)
+	{
 		Long i = Long.valueOf(id).longValue();
 		Todo todo = todoService.getById(i);
 		model.addAttribute("todo", todo);
+		model.addAttribute("message", message);
 		return "editForm";
 	}
 	
+	/* bu şekilde de yapabiliriz
+		@RequestMapping(value = "/update", method = RequestMethod.GET, params="id")
+		public String updateForm(@RequestParam("id") Long id,@ModelAttribute Todo todo) 
+		{
+		
+			Long i = Long.valueOf(id).longValue();
+			Todo todoNew = todoService.getById(todo.getId());
+		
+			//todo = todoNew ; diyemeyiz çünkü spring burda sadece todo nesnesini
+			//tanıyor. bu nesneye başka referans verince artık spring onu tanımıyor
+			
+			todo.setName(todoNew.getName());
+			todo.setDesc(todoNew.getDesc());
+			todo.setDone(todoNew.isDone());
+			todo.setDueDate(todoNew.getDueDate());
+			return "editForm";
+		}
+	*/
 }
