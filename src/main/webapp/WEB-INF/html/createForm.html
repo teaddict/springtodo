@@ -1,11 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <center>
+<div th:fragment="content">
+<div class="col-md-3">
+<h2>Create</h2>
 <form action="#" th:action="@{/todo/create}" th:object="${todo}" method="post">
-    <p><b>Name:</b> <input type="text" th:field="*{name}" /></p>
-    <p><b>Description:</b> <input type="text" th:field="*{desc}" /></p>
-    <p><b>Date:</b> <input type="date" th:field="*{dueDate}" /></p>
-    <p><input type="submit" value="Submit" /></p>
+    <p><b>Name:</b> <input type="text" th:field="*{name}"  class="form-control" required autofocus/></p>
+    <p><b>Description:</b> <input type="text" th:field="*{desc}" class="form-control" required autofocus/></p>
+    <p><b>Date:</b> <input type="date" th:field="*{dueDate}" class="form-control" required autofocus/></p>
+    <p><button class="btn btn-lg btn-primary btn-block" type="submit">Kaydet</button>
 </form>
+</div>
 </center>
+</div>
 </html>

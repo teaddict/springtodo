@@ -16,17 +16,22 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+
+import tr.lkd.lyk2015.springtodo.view.ThymeleafLayoutInterceptor;
 
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan("tr.lkd.lyk2015.springtodo")
 @PropertySource("classpath:error.properties")
-public class WebConfig extends WebMvcConfigurationSupport {
+public class WebConfig extends WebMvcConfigurerAdapter {
 	//uygulama ilk başlarken Bean anotationlu method çalıştırılıyor
 	//nesneler oluşturuluyorve dependency pool a atıyoruz
 	@Bean
@@ -101,5 +106,22 @@ public class WebConfig extends WebMvcConfigurationSupport {
 		properties.put("hibernate.enable_lazy_load_no_trans", "true");
 		return properties;
 	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		// TODO Auto-generated method stub
+		registry.addInterceptor(new ThymeleafLayoutInterceptor());
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		// TODO Auto-generated method stub
+		registry.addResourceHandler("/resources/**").addResourceLocations("/static/");
+	}
+	
+	
+	
+	
+	
 
 }

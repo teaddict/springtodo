@@ -1,14 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <center>
+<div th:fragment="content">
+<div class="col-md-3">
+<h2>Edit</h2>
 <form action="#" th:action="@{/todo/update}" th:object="${todo}" method="post">
-    <p><b>Name:</b> <input type="text" th:value="${todo.name}" th:field="*{name}" /></p>
-    <p><b>Description:</b> <input type="text" th:value="${todo.desc}" th:field="*{desc}" /></p>
-    <p><b>Date:</b> <input type="date" th:value="${todo.dueDate.getTime()}" th:field="*{dueDate}" /></p>
-    <p><b><input type="checkbox" name="done" th:checked="${todo.done}" /></b>
+    <p><b>Name:</b> <input type="text" th:value="${todo.name}" th:field="*{name} " class="form-control" required autofocus/></p>
+    <p><b>Description:</b> <input type="text" th:value="${todo.desc}" th:field="*{desc}" class="form-control" required autofocus/></p>
+    <p><b>Date:</b> <input type="date" th:value="${todo.dueDate.getTime()}" th:field="*{dueDate}" class="form-control" required autofocus/></p>
+    <p><b><input type="checkbox" name="done" th:checked="${todo.done}" class="form-control"/> </b>
 	<input type="hidden" name="id" th:value="${todo.id}" />
-    <p><input type="submit" value="Kaydet" /></p>
+    <p><button class="btn btn-lg btn-primary btn-block" type="submit">Kaydet</button>
 </form>
 <b th:text="${message}" th:if="${message} != null" />
 </center>
+</div>
+</div>
 </html>

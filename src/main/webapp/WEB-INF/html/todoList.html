@@ -1,5 +1,7 @@
-<h1>Spring</h1>
+<div th:fragment="content">
 
+<h1>Spring MVC</h1>
+<div class="col-md-4">
 <ul>
 	<li th:each="todo : ${todoList}">
 	<strike th:if="${todo.done}"><p th:text="${todo.name}"></p>
@@ -11,13 +13,15 @@
 	<p th:text="${todo.dueDate.getTime()}" />
 	</div>
 	<form action="#" th:action="@{/todo/mark}" th:object="${todo}" method="post">	
-		<input type="checkbox" name="done" th:checked="${todo.done}" />
+		<input type="checkbox" name="done" th:checked="${todo.done}" /> Done ?
 		<input type="hidden" name="id" th:value="${todo.id}" />
-		<p><input type="submit" value="Kaydet" /></p>
+		<p><button class="btn btn-lg btn-primary btn-block" type="submit">Kaydet</button>
 	</form>
 	<form action="#" th:action="@{/todo/edit}" th:object="${todo}" method="get">	
 		<input type="hidden" name="id" th:value="${todo.id}" />
-		<p><input type="submit" value="Edit" /></p>
+		<p><button class="btn btn-lg btn-primary btn-block" type="submit">Edit</button>
 	</form>
 	</li>
 </ul>
+</div>
+</div>
